@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Debugger</title>
+    <title>Planet Web</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
@@ -20,9 +20,9 @@
         WebGL builds are not supported on mobile devices.
       </div>
       <div id="unity-footer">
-        <div id="unity-webgl-logo"></div>
+        <div id="unity-webgl-logo"><a href="https://github.com/"><button>Powered by Unity and Github</button></a></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">Debugger</div>
+        <div id="unity-build-title">Planet Web by Rian</div>
       </div>
     </div>
     <script>
@@ -34,10 +34,9 @@
         codeUrl: buildUrl + "/PlanetWeb.wasm.br",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
-        productName: "Debugger",
+        productName: "PlanetWeb",
         productVersion: "1.0",
       };
-
       var container = document.querySelector("#unity-container");
       var canvas = document.querySelector("#unity-canvas");
       var loadingBar = document.querySelector("#unity-loading-bar");
@@ -53,7 +52,7 @@
           mobileWarning.style.display = "none";
         }, 5000);
       } else {
-        canvas.style.width = "960px";
+        canvas.style.width = "1100px";
         canvas.style.height = "600px";
       }
       loadingBar.style.display = "block";
