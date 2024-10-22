@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+	<style>	
+		h1 {
+		border-bottom: 2px solid black;
+		margin-top: 0px;
+		margin-bottom: 10px;
+		font-family: Arial;
+		font-size: 3rem;
+		background: linear-gradient(to bottom, #FF0000, #ff6865, /*#ADD8E6,*/ #0000FF);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		
+		}
+		.p {
+			font-family: Arial;
+			text-align: center;
+		}
+		.ph {
+			font-family: Arial;
+		}
+		.b {
+			display: block;
+			margin: auto;
+		}
+		iframe {
+			margin:auto;
+			display:block;
+			width: 100%;
+			height: 700px;
+		}
+	</style>
+	<head>
+		<title>Lit With Logic</title>
+	</head>
+	<body>
+		<h1 class="p">Lit With Logic</h1>
+		<h2 class="p">Created by Rian, also known as rjb370 on itch.io</h2>
+		<h3 class="p">NOTE: Game may take a moment to load when there's high traffic.</h4>
+		<h4 class="p">NOTE: This Game will be <b>LOCKED</b> for 5 minutes after this page loads 10 times.</h4>
+		<iframe src="./indexhead.html"></iframe>
+		<p class="ph">	Lit with Logic is a game built by Rian, also known as rjb370 on itch.io.</p>
+		<p class="ph"><b>NOTE:</b> If a line is stuck to your mouse, press <b>D</b> on your keyboard.</p>
+		<p class="ph">Images:</p>
+		<img src="./jpg/1.jpg" alt="Image 1" width="25%" height="25%">
+		<img src="./jpg/2.jpg" alt="Image 2" width="25%" height="25%">
+		<img src="./jpg/3.jpg" alt="Image 3" width="25%" height="25%">
+		<img src="./jpg/4.jpg" alt="Image 4" width="25%" height="25%">
+		<img src="./jpg/5.jpg" alt="Image 5" width="25%" height="25%">
+		<img src="./jpg/6.jpg" alt="Image 6" width="25%" height="25%">
+		<p style="border-bottom: 3px solid black; border-top: 3px dotted black; font-family: Arial;">Comments: [A Github Account is <b>Required</b>]</p>
+		<script src="https://giscus.app/client.js"
+			data-repo="jri-creator/lit-with-logic"
+			data-repo-id="R_kgDONBZ4dA"
+			data-category="Announcements"
+			data-category-id="DIC_kwDONBZ4dM4CjccA"
+			data-mapping="specific"
+			data-term="Comments"
+			data-strict="1"
+			data-reactions-enabled="1"
+			data-emit-metadata="1"
+			data-input-position="top"
+			data-theme="light"
+			data-lang="en"
+			data-loading="lazy"
+			crossorigin="anonymous"
+			async>
+		</script>
+	</body>
+	
+	<script>
+		// Function to set a cookie with name, value, and expiration time in minutes
+		function setCookie(name, value, minutes) {
+			const date = new Date();
+			date.setTime(date.getTime() + (minutes * 60 * 1000)); // Set expiration time
+			const expires = "expires=" + date.toUTCString();
+			document.cookie = name + "=" + value + ";" + expires + ";path=/";
+		}
+		
+		// Function to get a cookie by name
+		function getCookie(name) {
+			const nameEQ = name + "=";
+			const cookiesArray = document.cookie.split(';');
+			for (let i = 0; i < cookiesArray.length; i++) {
+				let cookie = cookiesArray[i].trim();
+				if (cookie.indexOf(nameEQ) === 0) {
+					return cookie.substring(nameEQ.length, cookie.length);
+				}
+			}
+			return null;
+		}
+		
+		// Get current page load count from cookie
+		let pageCount = getCookie('pageLoadCount');
+		pageCount = pageCount ? parseInt(pageCount) : 0; // Initialize to 0 if cookie does not exist
+		
+		// Increment the counter
+		pageCount += 1;
+		
+		// Set updated page load count in cookie with a X-minute expiration
+		setCookie('pageLoadCount', pageCount, 5);
+		
+		// Set the expiration timestamp in a separate cookie
+		const expirationDate = new Date();
+		expirationDate.setMinutes(expirationDate.getMinutes() + 5);
+		setCookie('expirationTime', expirationDate.getTime(), 5);
+		
+		// Check if the counter is X or more to redirect
+		if (pageCount >= 10) {
+			window.location.href = "./whoa.html"; // Change to your redirect page URL
+		}
+	</script>
+</html>
