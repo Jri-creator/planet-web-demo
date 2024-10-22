@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="shortcut icon" href="TemplateData/favicon.ico">
+		<title>Hold it right there...</title>
+	</head>
+	<style>	
+		.p {
+			font-family: Arial;
+		}
+		.b {
+			display: block;
+			margin: auto;
+		}
+		iframe {
+			margin:auto;
+			display:block;
+			width: 100%;
+			height: 700px;
+		}
+	</style>
+	<script>
+		// Function to get a cookie by name
+		function getCookie(name) {
+			const nameEQ = name + "=";
+			const cookiesArray = document.cookie.split(';');
+			for (let i = 0; i < cookiesArray.length; i++) {
+				let cookie = cookiesArray[i].trim();
+				if (cookie.indexOf(nameEQ) === 0) {
+					return cookie.substring(nameEQ.length, cookie.length);
+				}
+			}
+			return null;
+		}
+		
+		// Function to set a cookie with a specified name, value, and expiration in minutes
+		function setCookie(name, value, minutes) {
+			const date = new Date();
+			date.setTime(date.getTime() + (minutes * 60 * 1000)); // Set expiration time
+			const expires = "expires=" + date.toUTCString();
+			document.cookie = name + "=" + value + ";" + expires + ";path=/";
+		}
+		
+		// Function to start the countdown based on expiration time
+		function startCountdown(expirationTimestamp) {
+			const countdownInterval = setInterval(() => {
+				const now = new Date().getTime(); // Current timestamp
+				const timeLeft = expirationTimestamp - now; // Time left in milliseconds
+				
+				if (timeLeft > 0) {
+					// Calculate minutes and seconds
+					const minutes = Math.floor(timeLeft / (1000 * 60));
+					const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+					
+					// Display the countdown
+					document.getElementById("countdown").textContent = 
+					`${minutes} minute(s) and ${seconds} second(s) left`;
+				} else {
+					// If time is up, stop the countdown
+					clearInterval(countdownInterval);
+					document.getElementById("countdown").textContent = "Timer cleared.";
+				}
+			}, 1000);
+		}
+		
+		// Function to reset the page load count without affecting the timer
+		function resetPageLoadCountOnly() {
+			setCookie('pageLoadCount', 0, 30); // Reset page load count to 0
+			alert("Page load count has been reset to 0.");
+		}
+		
+		// On page load
+		window.onload = function () {
+			// Get the expiration timestamp from the cookie
+			const expirationTime = getCookie('expirationTime');
+			
+			if (expirationTime) {
+				const expirationTimestamp = parseInt(expirationTime);
+				startCountdown(expirationTimestamp);
+			} else {
+				document.getElementById("countdown").textContent = "No timer set.";
+			}
+			
+			// Track key presses for the sequence J - R - I - R
+			let keys = [];
+			const resetSequence = ['j', 'r', 'i', '-', 'r'];
+			
+			document.addEventListener('keydown', function(event) {
+				keys.push(event.key.toLowerCase()); // Capture the key pressed
+				
+				// Check if the last keys match the reset sequence
+				if (keys.length > resetSequence.length) {
+					keys.shift(); // Remove the oldest key to maintain the sequence length
+				}
+				
+				// If the keys match the reset sequence, reset the count without changing the timer
+				if (keys.join('') === resetSequence.join('')) {
+					resetPageLoadCountOnly(); // Call the reset function for the page load count
+					keys = []; // Reset the keys array after successful input
+				}
+			});
+		}
+	</script>
+	<body>
+		<h1 class="p">Hold it right there!</h1>
+		<p class="p">Looks like you accessed this page too many times. Try again in:</p>
+		<p class="p" id="countdown">Retrieving info</p>
+		<p class="p"><b>DON'T CLOSE THIS PAGE!</b></p>
+	</body>
+</html>
